@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details & Snacks Order Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 1.8em;
+            color: #333;
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            margin-top: 15px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            max-width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 45%;
+        }
+        .next-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: #fff;
+        }
+        .next-btn:hover {
+            background: linear-gradient(45deg, #388e3c, #689f38);
+            transform: scale(1.05);
+        }
+        .prev-btn {
+            background-color: #ccc;
+            color: #333;
+        }
+        .prev-btn:hover {
+            background-color: #bbb;
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            color: #fff;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #e91e63, #c2185b);
+            transform: scale(1.05);
+        }
+        .snack-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+        }
+        .snack-row span {
+            font-size: 16px;
+            color: #333;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-controls button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .quantity-controls button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+        .quantity-controls input {
+            width: 50px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+        }
+        .error-message {
+            color: #ff4d4d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+                width: 90%;
+            }
+            .button-group button {
+                width: 48%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Employee Details & Snacks Order Form</h1>
+    <form id="orderForm" action="https://docs.google.com/forms/d/e/1FAIpQLScN--1uyE-bG5I7xfUElKaaNso2kiAbGBRGl_qqKrJURxsPPQ/formResponse" method="POST">
+
+        <!-- Step 1: Employee Details -->
+        <div class="form-step active" id="step1">
+            <label for="employee_name">Employee Name:</label>
+            <input type="text" id="employee_name" name="entry.1978772270" placeholder="Enter employee name" required>
+            <div id="employee_name_error" class="error-message"></div>
+
+            <label for="employee_code">Employee Code:</label>
+            <input type="text" id="employee_code" name="entry.468269821" placeholder="Enter employee code" required>
+            <div id="employee_code_error" class="error-message"></div>
+
+            <label for="lob">LOB:</label>
+            <input type="number" id="lob" name="entry.1710583619" placeholder="Enter LOB number" required>
+            <div id="lob_error" class="error-message"></div>
+
+            <label for="loc">LOC:</label>
+            <input type="number" id="loc" value="1461" name="entry.1254277860" readonly>
+
+            <label for="cc">CC:</label>
+            <input type="number" id="cc" name="entry.467501713" placeholder="Enter CC number" required>
+            <div id="cc_error" class="error-message"></div>
+
+            <label for="meeting_room">Meeting Room Number:</label>
+            <input type="number" id="meeting_room" name="entry.136348538" placeholder="Enter meeting room number" required>
+            <div id="meeting_room_error" class="error-message"></div>
+
+            <div class="button-group">
+                <button type="button" class="next-btn" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Snacks Order -->
+        <div class="form-step" id="step2">
+            <div class="snack-row">
+                <span>Normal Tea</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('normal_tea', -1)">-</button>
+                    <input type="number" id="normal_tea" name="entry.438252327" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('normal_tea', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Masala_tea</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Masala_tea', -1)">-</button>
+                    <input type="number" id="Masala_tea" name="entry.1681475854" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Masala_tea', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Green_tea</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Green_tea', -1)">-</button>
+                    <input type="number" id="Green_tea" name="entry.1245906191" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Green_tea', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Black_tea</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Black_tea', -1)">-</button>
+                    <input type="number" id="Black_tea" name="entry.1447153047" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Black_tea', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Coffee</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Coffee', -1)">-</button>
+                    <input type="number" id="Coffee" name="entry.757141436" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Coffee', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Black_coffee</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Black_coffee', -1)">-</button>
+                    <input type="number" id="Black_coffee" name="entry.831053835" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Black_coffee', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Biscuits</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('Biscuits', -1)">-</button>
+                    <input type="number" id="Biscuits" name="entry.1642104980" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('Biscuits', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="snack-row">
+                <span>Cookie</span>
+                <div class="quantity-controls">
+                    <button type="button" onclick="updateQuantity('cookie', -1)">-</button>
+                    <input type="number" id="cookie" name="entry.234741409" value="0" readonly>
+                    <button type="button" onclick="updateQuantity('cookie', 1)">+</button>
+                </div>
+            </div>
+
+            <label for="additional_notes">Additional Notes (Optional):</label>
+            <textarea id="additional_notes" name="entry.1195283332" rows="4" placeholder="Enter any additional notes (Optional)"></textarea>
+
+            <div class="button-group">
+                <button type="button" class="prev-btn" onclick="prevStep()">Previous</button>
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Show Next Step
+    function nextStep() {
+        if (!validateEmployeeDetails()) {
+            return;
+        }
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+    }
+
+    // Show Previous Step
+    function prevStep() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+    }
+
+    // Update Snack Quantity
+    function updateQuantity(snack, delta) {
+        let input = document.getElementById(snack);
+        let value = parseInt(input.value) + delta;
+        if (value >= 0) {
+            input.value = value;
+        }
+    }
+
+    // Form Validation for Employee Details
+    function validateEmployeeDetails() {
+        let isValid = true;
+
+        // Reset previous errors
+        document.getElementById('employee_name_error').textContent = '';
+        document.getElementById('employee_code_error').textContent = '';
+        document.getElementById('lob_error').textContent = '';
+        document.getElementById('cc_error').textContent = '';
+        document.getElementById('meeting_room_error').textContent = '';
+
+        // Validate employee name
+        if (!document.getElementById('employee_name').value) {
+            document.getElementById('employee_name_error').textContent = 'Employee Name is required';
+            isValid = false;
+        }
+
+        // Validate employee code
+        if (!document.getElementById('employee_code').value) {
+            document.getElementById('employee_code_error').textContent = 'Employee Code is required';
+            isValid = false;
+        }
+
+        // Validate LOB
+        if (!document.getElementById('lob').value) {
+            document.getElementById('lob_error').textContent = 'LOB is required';
+            isValid = false;
+        }
+
+        // Validate CC
+        if (!document.getElementById('cc').value) {
+            document.getElementById('cc_error').textContent = 'CC is required';
+            isValid = false;
+        }
+
+        // Validate Meeting Room
+        if (!document.getElementById('meeting_room').value) {
+            document.getElementById('meeting_room_error').textContent = 'Meeting Room is required';
+            isValid = false;
+        }
+
+        return isValid;
+    }
+	function handleSubmit(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Show Thank You message and hide the form
+        document.querySelector('.form-container').style.display = 'none';
+        document.getElementById('thankYou').style.display = 'block';
+    }
+
+</script>
+</body>
+</html>
